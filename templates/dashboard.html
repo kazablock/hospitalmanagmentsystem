@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block title %} Patient Details {% endblock %}
+
+
+{% block body %}
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+   <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">Hospital Managment</a>
+   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
+      data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+   </button>
+   <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+         <a class="nav-link" href="/logout">Sign out</a>
+      </li>
+   </ul>
+</nav>
+<br>
+<div class="container-fluid">
+   <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+         <div class="sidebar-sticky pt-3">
+            <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+            <ul class="navbar-nav px-3">
+               <li class="nav-item">
+                  <a class="nav-link active" href="/desk">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-home">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                     </svg>
+                     Dashboard <span class="sr-only">(current)</span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/pharmacist">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-file">
+                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                        <polyline points="13 2 13 9 20 9"></polyline>
+                     </svg>
+                     Pharmacist
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/diagnostic">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-shopping-cart">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                     </svg>
+                     Diagnostic
+                  </a>
+               </li>
+
+               <li class="nav-item">
+                  <a class="nav-link" href="/report">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-bar-chart-2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                     </svg>
+                     Reports
+                  </a>
+               </li>
+
+
+            </ul>
+
+
+
+         </div>
+      </nav>
+      <div class="class=col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+         <!-- <div class="jumbotron p-3"> -->
+
+         <form class="form-inline d-flex justify-content-center md-form form-sm mt-0 float-right"
+            action="{{url_for('desk')}}" method="POST">
+
+            <input class="form-control form-control-sm ml-3 w-75" name="searchtext" type="text"
+               placeholder="Search SSID" aria-label="Search">
+         </form>
+         <h2>Manage <b>Patients </b> <button type="button" class="btn btn-success float-right" data-toggle="modal"
+               data-target="#mymodal">Add New Patient</button> </h2>
+
+
+
+         {% with messages = get_flashed_messages() %}
+
+         {% if messages %}
+
+         {% for message in messages %}
+
+         <div class="alert alert-success alert-dismissable" role="alert">
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+
+               <span aria-hidden="true">x</span>
+
+            </button>
+
+
+            {{message}}
+
+
+         </div>
+
+
+         {% endfor %}
+
+         {% endif %}
+         {% endwith %}
+
+         <div class="table-responsive">
+            <table class="table table-hover">
+               <thead class="thead-dark">
+                  <tr>
+
+                     <th>SSID</th>
+                     <th>Name</th>
+                     <th>Age</th>
+                     <th>Date Of Joining</th>
+                     <th>Room type</th>
+                     <th>Address</th>
+                     <th>State</th>
+                     <th>City</th>
+                     <th colspan="2">Action</th>
+
+                  </tr>
+               </thead>
+
+
+               {% for row in data %}
+               <tr>
+                  <td>{{row.ssid}}</td>
+                  <td>{{row.name}}</td>
+                  <td>{{row.age}}</td>
+                  <td>{{row.timestamp}}</td>
+                  <td>{{row.typeofbed}}</td>
+                  <td>{{row.address}}</td>
+                  <td>{{row.state}}</td>
+                  <td>{{row.city}}</td>
+                  <td>
+                     <span><a href="/update" class="btn btn-warning btn-xs" data-toggle="modal"
+                           data-target="#modaledit{{row.id}}">Edit</a>
+                        <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs"
+                           onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+                     </span>
+
+                  </td>
+
+               </tr>
+
+
+               <!-- Modal Edit Employee-->
+               <div id="modaledit{{row.id}}" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+
+                     <div class="modal-content">
+
+
+                        <div class="modal-header">
+
+
+                           <h4 class="modal-title">Update Information</h4>
+
+
+                        </div>
+
+
+                        <div class="modal-body">
+
+
+                           <form action="{{url_for('update')}}" method="POST">
+
+
+                              <div class="form-group">
+
+                                 <label>SSID</label>
+                                 <input type="hidden" class="form-control" name="id" value="{{row.id}}">
+                                 <input type="text" class="form-control" name="ssid" value="{{row.ssid}}" required="1">
+
+
+                              </div>
+
+
+                              <div class="form-group">
+
+
+                                 <label>Name</label>
+                                 <input type="text" class="form-control" name="name" value="{{row.name}}" required="1">
+
+
+                              </div>
+
+
+                              <div class="form-group">
+
+
+                                 <label>Age</label>
+                                 <input type="number" class="form-control" name="age" value="{{row.age}}" required="1">
+
+
+                              </div>
+                              <div class="form-group">
+
+
+                                 <label>Date Of Joining</label>
+                                 <input type="datetime-local" class="form-control" name="doj" value="{{row.timestamp}}"
+                                    required="1">
+
+
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="exampleFormControlSelect1">Example select</label>
+                                 <select class="form-control" name="typeofbed" value="{{row.typeofbed}}"
+                                    id="exampleFormControlSelect1">
+                                    <option>General Ward</option>
+                                    <option>Semi Sharing</option>
+                                    <option>Single Room</option>
+                                 </select>
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="exampleFormControlTextarea1">Address</label>
+                                 <textarea class="form-control" name="address" id="exampleFormControlTextarea1"
+                                    rows="3">{{row.address}}</textarea>
+                              </div>
+
+                              <div class="form-group">
+
+
+                                 <label>State</label>
+                                 <input type="text" class="form-control" name="state" value="{{row.state}}"
+                                    required="1">
+
+
+                              </div>
+
+                              <div class="form-group">
+
+
+                                 <label>City</label>
+                                 <input type="text" class="form-control" name="city" value="{{row.city}}" required="1">
+
+
+                              </div>
+
+                              <div class="form-group">
+
+
+                                 <button class="btn btn-primary" type="submit">Update</button>
+
+
+                              </div>
+
+
+                           </form>
+
+
+                        </div>
+
+
+                        <div class="modal-footer">
+
+
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                        </div>
+
+
+                     </div>
+
+
+                  </div>
+
+
+
+
+                  {% endfor %}
+
+
+            </table>
+
+         </div>
+      </div>
+
+
+
+      <!-- Modal Add Employee-->
+
+
+      <div id="mymodal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+
+                  <h4 class="modal-title">Add Patient</h4>
+               </div>
+               <div class="modal-body">
+
+                  <form action="{{url_for('insert')}}" method="POST">
+
+
+                     <div class="form-group">
+
+                        <label>SSID</label>
+                        <input type="text" class="form-control" name="ssid" required="1">
+
+
+                     </div>
+
+
+                     <div class="form-group">
+
+
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="name" required="1">
+
+
+                     </div>
+
+
+                     <div class="form-group">
+
+
+                        <label>Age</label>
+                        <input type="number" class="form-control" name="age" required="1">
+
+
+                     </div>
+                     <div class="form-group">
+
+
+                        <label>Date Of Joining</label>
+                        <input type="datetime-local" class="form-control" name="doj" required="1">
+
+
+                     </div>
+
+                     <div class="form-group">
+                        <label for="exampleFormControlSelect1">Example select</label>
+                        <select class="form-control" name="typeofbed" id="exampleFormControlSelect1">
+                           <option>General Ward</option>
+                           <option>Semi Sharing</option>
+                           <option>Single Room</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Address</label>
+                        <textarea class="form-control" name="address" id="exampleFormControlTextarea1"
+                           rows="3"></textarea>
+                     </div>
+
+                     <div class="form-group">
+
+
+                        <label>State</label>
+                        <input type="text" class="form-control" name="state" required="1">
+
+
+                     </div>
+
+                     <div class="form-group">
+
+
+                        <label>City</label>
+                        <input type="text" class="form-control" name="city" required="1">
+
+
+                     </div>
+
+
+                     <div class="form-group">
+
+
+                        <button class="btn btn-primary" type="submit">Add Patient</button>
+
+
+                     </div>
+
+
+                  </form>
+
+
+               </div>
+
+
+               <div class="modal-footer">
+
+
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+               </div>
+
+
+            </div>
+
+
+         </div>
+
+
+      </div>
+
+
+
+
+
+   </div>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

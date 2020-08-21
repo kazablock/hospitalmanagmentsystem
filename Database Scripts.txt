@@ -1,0 +1,16 @@
+pip install -r requirements.txt
+
+python
+
+from app import db
+db.create_all()
+from app import User
+
+#The username is "desk" and unhashed password for desk person is "password1"
+user=User(username="desk",email="email1@gmail.com",password="sha256$UNDZOeQW$e74374d8a3e8f3bfa1cfb073c194e3aee9dcc505cac2fa472386185ab482c756")
+
+#The username is "pharmacist" and unhashed pawword for pharmacist is "password2"
+user2=User(username="pharmacist",email="email2@gmail.com",password="sha256$UqhKTC4N$c9eecd0d3601130fa0a6f6e5fa43a04eac8d64ffa9cca39f84f5d7a858dda5ed")
+
+#The username is "diagnostic" and unhashed password for diagnostic is "password3"
+user3=User(username="diagnostic",email="email3@gmail.com",password="sha256$leUn2YhA$0430e39df668b366454d99aaa05bac09bf3a370dcf7fb9dac4e4cdfd14e17555")

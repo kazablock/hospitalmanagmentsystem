@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{{url_for('.static', filename='signin.css')}}">
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">Hospital Managment</a>
+  </nav>
+  
+<div id="parent" class="d-flex justify-content-center align-items-center">
+  
+    <form action="/login" method="POST">
+      <div class="form-group text-center">
+        <h4 class="display-4 font-weight-bold">H</h4>
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      </div>
+      <div class="form-group">
+       
+        
+        <label for="exampleInputEmail1">Username</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Enter Username" name="username" required="1">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password"
+          required="1">
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" name="checkbox" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+      </div>
+      <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+  
+  </form> <!-- /container -->
+
+</div>
+{% endblock %}
